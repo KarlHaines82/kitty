@@ -18,10 +18,11 @@ from kitty.tab_bar import (
 timer_id = None
 
 pl_sep_styles = dict(
-    round=["",""],
-    angled=["",""],
-    slant=["",""],
+    round=["", ""],
+    angled=["", ""],
+    slant=["", ""],
 )
+
 
 def draw_tab(
     draw_data: DrawData,
@@ -77,14 +78,9 @@ def draw_right_status(draw_data: DrawData, screen: Screen) -> None:
         screen.draw(f" {cell} ")
 
 
-def create_cells() -> list[str]:
-    now = datetime.datetime.now()
-    return [
-        #currently_playing(),
-        #get_headphone_battery_status(),
-        now.strftime("%d %b"),
-        now.strftime("%l:%M%p"),
-    ]
+def mem_cpu_load(s=""):
+    # s = subprocess.getoutput("tmux-mem-cpu-load")
+    return str(s)
 
 
 def get_headphone_battery_status():
@@ -122,6 +118,17 @@ def currently_playing():
     else:
         status = ""
     return status
+
+
+def create_cells() -> list[str]:
+    now = datetime.datetime.now()
+    return [
+        # mem_cpu_load(),
+        # currently_playing(),
+        # get_headphone_battery_status(),
+        now.strftime("%d %b"),
+        now.strftime("%l:%M%p"),
+    ]
 
 
 def _redraw_tab_bar(timer_id):
