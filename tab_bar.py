@@ -78,9 +78,9 @@ def draw_right_status(draw_data: DrawData, screen: Screen) -> None:
         screen.draw(f" {cell} ")
 
 
-def mem_cpu_load(s=""):
-    # s = subprocess.getoutput("tmux-mem-cpu-load")
-    return str(s)
+def mem_cpu_load():
+    s = subprocess.getoutput("/usr/bin/tmux-mem-cpu-load")
+    return f"%s" % s
 
 
 def get_headphone_battery_status():
@@ -121,12 +121,14 @@ def currently_playing():
 
 
 def create_cells() -> list[str]:
+    loadavg = subprocess.getoutput("cat /proc/loadavg")
     now = datetime.datetime.now()
     return [
-        # mem_cpu_load(),
         # currently_playing(),
+        # mem_cpu_load(),
         # get_headphone_battery_status(),
-        now.strftime("%d %b"),
+        # now.strftime("%d %b"),
+        loadavg,
         now.strftime("%l:%M%p"),
     ]
 
